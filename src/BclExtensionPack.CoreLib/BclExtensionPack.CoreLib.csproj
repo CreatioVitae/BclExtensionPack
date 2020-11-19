@@ -3,9 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>0.0.2-beta</Version>
-    <AssemblyVersion>0.0.2.0</AssemblyVersion>
+    <Version>0.1.1-beta</Version>
+    <AssemblyVersion>0.1.1.0</AssemblyVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Vitae</Authors>
+    <FileVersion>0.1.1.0</FileVersion>
   </PropertyGroup>
 
 </Project>
