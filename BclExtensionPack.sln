@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BclExtensionPack.CoreLib", "src\BclExtensionPack.CoreLib\BclExtensionPack.CoreLib.csproj", "{5439B678-2880-4A19-8155-8B5CBA71D2C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BclExtensionPack.Mail", "src\BclExtensionPack.Mail\BclExtensionPack.Mail.csproj", "{8A3E6731-B1BB-4D3D-9C71-9F842B82F2E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BclExtensionPack.Mail", "src\BclExtensionPack.Mail\BclExtensionPack.Mail.csproj", "{8A3E6731-B1BB-4D3D-9C71-9F842B82F2E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7442E4E7-640E-46BF-B575-04C7F9AD2615}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
