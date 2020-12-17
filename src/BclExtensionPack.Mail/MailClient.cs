@@ -46,7 +46,7 @@ namespace BclExtensionPack.Mail {
             smtpClient.Disconnect(true);
         }
 
-        private MimeKit.MimeMessage CreateMimeMessage(MailMessage mailMessage) {
+        static MimeKit.MimeMessage CreateMimeMessage(MailMessage mailMessage) {
             var message = new MimeKit.MimeMessage();
 
             message.SetSubject(mailMessage);
