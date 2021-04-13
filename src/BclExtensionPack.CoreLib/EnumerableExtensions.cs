@@ -37,5 +37,8 @@ namespace System.Linq {
 
             await Task.WhenAll(tasks.ToArray()).ConfigureAwait(configureAwait);
         }
+
+        public static bool IsNotNullAndAny<T>(this IEnumerable<T> source) where T : class =>
+            source is not null && source.Any();
     }
 }
