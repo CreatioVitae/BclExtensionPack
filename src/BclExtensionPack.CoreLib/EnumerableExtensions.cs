@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -38,7 +39,7 @@ namespace System.Linq {
             await Task.WhenAll(tasks.ToArray()).ConfigureAwait(configureAwait);
         }
 
-        public static bool IsNotNullAndAny<T>(this IEnumerable<T> source) where T : class =>
+        public static bool IsAny<T>([NotNullWhen(true)] this IEnumerable<T>? source) where T : class =>
             source is not null && source.Any();
     }
 }
