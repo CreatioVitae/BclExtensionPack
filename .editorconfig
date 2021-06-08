@@ -199,3 +199,7 @@ dotnet_naming_style.i_で始まる.required_prefix = I
 dotnet_naming_style.i_で始まる.required_suffix = 
 dotnet_naming_style.i_で始まる.word_separator = 
 dotnet_naming_style.i_で始まる.capitalization = pascal_case
+
+[*.{cs,vb}]
+dotnet_diagnostic.CA1838.severity=suggestion
+dotnet_diagnostic.CA1805.severity=suggestion

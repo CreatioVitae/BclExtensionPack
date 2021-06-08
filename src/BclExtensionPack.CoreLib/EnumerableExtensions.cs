@@ -41,5 +41,23 @@ namespace System.Linq {
 
         public static bool IsAny<T>([NotNullWhen(true)] this IEnumerable<T>? source) where T : class =>
             source is not null && source.Any();
+
+        public static TSource? FirstOrDefault<TSource, TState>(this IEnumerable<TSource> source, Func<TSource, TState, bool> predicate, TState state) {
+            if (source is null) {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            if (predicate is null) {
+                throw new ArgumentNullException(nameof(predicate));
+            }
+
+            foreach (var element in source) {
+                if (predicate(element, state)) {
+                    return element;
+                }
+            }
+
+            return default;
+        }
     }
 }
