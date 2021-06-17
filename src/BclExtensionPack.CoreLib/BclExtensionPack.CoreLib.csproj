@@ -1,13 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>0.7.2-beta</Version>
-    <AssemblyVersion>0.7.2.0</AssemblyVersion>
+    <Version>0.8.2-beta</Version>
+    <AssemblyVersion>0.8.2.0</AssemblyVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Vitae</Authors>
-    <FileVersion>0.7.2.0</FileVersion>
+    <FileVersion>0.8.2.0</FileVersion>
     <PackageReleaseNotes>add FirstOrDefault...</PackageReleaseNotes>
   </PropertyGroup>
 

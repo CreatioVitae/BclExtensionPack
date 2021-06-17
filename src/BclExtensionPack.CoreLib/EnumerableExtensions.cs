@@ -5,8 +5,11 @@ using System.Threading.Tasks;
 
 namespace System.Linq {
     public static class EnumerableExtensions {
-        public static List<T> AsList<T>(this IEnumerable<T> source) where T : class =>
+        public static List<T> AsList<T>(this IEnumerable<T> source) =>
             (source is List<T> list) ? list : source.ToList();
+
+        public static List<T>? AsListOrDefault<T>(this IEnumerable<T>? source) =>
+            (source is List<T> list) ? list : source?.ToList();
 
         [Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1068:CancellationToken パラメーターは最後に指定する必要があります", Justification = "<保留中>")]
         public static async Task ForEachAsync<T>(this IEnumerable<T>? sources, Func<T, Task>? func, int concurrency, CancellationToken cancellationToken = default, bool configureAwait = false) {
