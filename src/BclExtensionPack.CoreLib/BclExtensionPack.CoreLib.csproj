@@ -3,12 +3,12 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>0.8.2-beta</Version>
-    <AssemblyVersion>0.8.2.0</AssemblyVersion>
+    <Version>0.8.4-beta</Version>
+    <AssemblyVersion>0.8.4.0</AssemblyVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Vitae</Authors>
-    <FileVersion>0.8.2.0</FileVersion>
-    <PackageReleaseNotes>add FirstOrDefault...</PackageReleaseNotes>
+    <FileVersion>0.8.4.0</FileVersion>
+    <PackageReleaseNotes>add TryDecodeUtf8FromBase64String...</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>
