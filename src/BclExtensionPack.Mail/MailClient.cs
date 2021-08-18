@@ -40,7 +40,7 @@ namespace BclExtensionPack.Mail {
         public void Send(MailMessage mailMessage) =>
             _smtpClient.Send(CreateMimeMessage(mailMessage));
 
-        public void Send(Configuration configuration, MailMessage mailMessage) {
+        public static void Send(Configuration configuration, MailMessage mailMessage) {
             using var smtpClient = CreateConnectedAndAuthenticatedSmtpClient(configuration);
             smtpClient.Send(CreateMimeMessage(mailMessage));
             smtpClient.Disconnect(true);
@@ -80,6 +80,7 @@ namespace BclExtensionPack.Mail {
     }
 
     internal static class MimeMessageExtensionLibrary {
-        internal static void SetSubject(this MimeKit.MimeMessage mimeMessage, MailMessage mailMessage) => mimeMessage.Headers.Replace(MimeKit.HeaderId.Subject, mailMessage.Encoding, mailMessage.Subject);
+        internal static void SetSubject(this MimeKit.MimeMessage mimeMessage, MailMessage mailMessage) =>
+            mimeMessage.Headers.Replace(MimeKit.HeaderId.Subject, mailMessage.Encoding, mailMessage.Subject);
     }
 }

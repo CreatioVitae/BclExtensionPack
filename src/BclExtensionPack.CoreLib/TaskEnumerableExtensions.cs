@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 namespace System.Threading.Tasks {
-    public static class TaskEnumerableExtensionLibrary {
+    public static class TaskEnumerableExtensions {
         public static Task WhenAll(this IEnumerable<Task> tasks) =>
             Task.WhenAll(tasks);
 
