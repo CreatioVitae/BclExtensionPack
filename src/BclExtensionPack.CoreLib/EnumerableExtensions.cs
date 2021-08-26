@@ -11,8 +11,7 @@ namespace System.Linq {
         public static List<T>? AsListOrDefault<T>(this IEnumerable<T>? source) =>
             (source is List<T> list) ? list : source?.ToList();
 
-        [Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1068:CancellationToken パラメーターは最後に指定する必要があります", Justification = "<保留中>")]
-        public static async Task ForEachAsync<T>(this IEnumerable<T>? sources, Func<T, Task>? func, int concurrency, CancellationToken cancellationToken = default, bool configureAwait = false) {
+        public static async Task ForEachAsync<T>(this IEnumerable<T>? sources, Func<T, Task>? func, int concurrency, bool configureAwait = false, CancellationToken cancellationToken = default) {
             if (sources is null || !sources.Any()) { throw new ArgumentNullException(nameof(sources)); }
             if (func is null) { throw new ArgumentNullException(nameof(func)); }
             if (concurrency <= 0) { throw new ArgumentOutOfRangeException($"{nameof(concurrency)}は1以上、{int.MaxValue}以下に設定してください。但し、同時並列数は現実的な範囲内で設定することをお勧めします。"); }
