@@ -11,9 +11,9 @@ namespace BclExtensionPack.Mail {
 
         internal IEnumerable<MailboxAddress> To { get; }
 
-        internal IEnumerable<MailboxAddress> Cc { get; }
+        internal IEnumerable<MailboxAddress>? Cc { get; }
 
-        internal IEnumerable<MailboxAddress> Bcc { get; }
+        internal IEnumerable<MailboxAddress>? Bcc { get; }
 
         internal string Subject { get; }
 
@@ -22,11 +22,11 @@ namespace BclExtensionPack.Mail {
         internal Encoding Encoding { get; }
 
         public MailMessage(string subject, (bool isHtml, string text) body, (string name, string address) from, IEnumerable<(string name, string address)> to,
-            IEnumerable<(string name, string address)> cc = default, IEnumerable<(string name, string address)> bcc = default, Encoding encoding = default) {
+            IEnumerable<(string name, string address)>? cc = default, IEnumerable<(string name, string address)>? bcc = default, Encoding? encoding = default) {
 
             //Todo:Validation.
-            Encoding = encoding == default ? Encoding.GetEncoding("iso-2022-jp") : encoding;
-            From = new MailboxAddress(Encoding, from.name, from.address);
+            Encoding = encoding ?? Encoding.GetEncoding("iso-2022-jp");
+            From = new(Encoding, from.name, from.address);
             To = to.Select(item => new MailboxAddress(Encoding, item.name, item.address));
             Cc = cc?.Select(item => new MailboxAddress(Encoding, item.name, item.address));
             Bcc = bcc?.Select(item => new MailboxAddress(Encoding, item.name, item.address));

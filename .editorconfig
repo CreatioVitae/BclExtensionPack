@@ -1,23 +1,39 @@
 # 上位ディレクトリから .editorconfig 設定を継承する場合は、以下の行を削除します
 root = true
 
-# C# ファイル
-[*.cs]
+# 共通設定
+[*]
 
 #### コア EditorConfig オプション ####
 
 charset = utf-8
 
+# インデントと間隔(indent_sizeも含めたかったが、resx等はindent_size = 2なので、一旦含めない。)
+indent_style = space
+dotnet_diagnostic.CA1827.severity=warning
+dotnet_diagnostic.CA1829.severity=error
+dotnet_diagnostic.CA1828.severity=warning
+
+# Sqlファイル
+[*.sql]
+
+#### コア EditorConfig オプション ####
+
 # インデントと間隔
 indent_size = 4
-indent_style = space
-tab_width = 4
+
+# C# ファイル
+[*.cs]
+
+#### コア EditorConfig オプション ####
+
+# インデントと間隔
+indent_size = 4
 
 # 改行設定
 end_of_line = crlf
 insert_final_newline = true
 trim_trailing_whitespace = true
-
 
 #### .NET コーディング規則 ####
 
@@ -52,8 +68,8 @@ dotnet_style_null_propagation = true:warning
 dotnet_style_object_initializer = true:warning
 dotnet_style_prefer_auto_properties = true:warning
 dotnet_style_prefer_compound_assignment = true:suggestion
-dotnet_style_prefer_conditional_expression_over_assignment = true:warning
-dotnet_style_prefer_conditional_expression_over_return = true:warning
+dotnet_style_prefer_conditional_expression_over_assignment = true:suggestion
+dotnet_style_prefer_conditional_expression_over_return = true:suggestion
 dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
 dotnet_style_prefer_inferred_tuple_names = true:suggestion
 dotnet_style_prefer_is_null_check_over_reference_equality_method = true:warning
@@ -199,7 +215,13 @@ dotnet_naming_style.i_で始まる.required_prefix = I
 dotnet_naming_style.i_で始まる.required_suffix = 
 dotnet_naming_style.i_で始まる.word_separator = 
 dotnet_naming_style.i_で始まる.capitalization = pascal_case
+csharp_style_prefer_pattern_matching=true:suggestion
 
-[*.{cs,vb}]
-dotnet_diagnostic.CA1838.severity=suggestion
-dotnet_diagnostic.CA1805.severity=suggestion
+# CS8600: Null リテラルまたは Null の可能性がある値を Null 非許容型に変換しています。
+dotnet_diagnostic.CS8600.severity = error
+
+# CS8602: null 参照の可能性があるものの逆参照です。
+dotnet_diagnostic.CS8602.severity = error
+
+# CS8604: Null 参照引数の可能性があります。
+dotnet_diagnostic.CS8604.severity = error

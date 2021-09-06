@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -9,6 +9,7 @@
     <Authors>Vitae</Authors>
     <FileVersion>0.8.5.0</FileVersion>
     <PackageReleaseNotes>add TryDecodeUtf8FromBase64String...</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/CreatioVitae/BclExtensionPack</PackageProjectUrl>
   </PropertyGroup>
 
 </Project>

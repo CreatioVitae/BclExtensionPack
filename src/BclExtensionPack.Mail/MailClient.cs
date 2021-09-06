@@ -7,14 +7,11 @@ namespace BclExtensionPack.Mail {
     public class MailClient : IDisposable {
         readonly SmtpClient _smtpClient;
 
-        public static MailClient Create() =>
-            new();
-
         public static MailClient Create(Configuration configuration) =>
             new(CreateConnectedAndAuthenticatedSmtpClient(configuration));
 
         public static async Task<MailClient> CreateAsync(Configuration configuration) =>
-            new (await CreateConnectedAndAuthenticatedSmtpClientAsync(configuration));
+            new(await CreateConnectedAndAuthenticatedSmtpClientAsync(configuration));
 
         private static SmtpClient CreateConnectedAndAuthenticatedSmtpClient(Configuration configuration) =>
             new SmtpClient { Timeout = configuration.TimeoutInMilliseconds }.ConnectAndAuthenticate(configuration);
@@ -22,10 +19,8 @@ namespace BclExtensionPack.Mail {
         private static async Task<SmtpClient> CreateConnectedAndAuthenticatedSmtpClientAsync(Configuration configuration) =>
             await new SmtpClient { Timeout = configuration.TimeoutInMilliseconds }.ConnectAndAuthenticateAsync(configuration);
 
-        public MailClient(SmtpClient smtpClient) => _smtpClient = smtpClient;
-
-        public MailClient() {
-        }
+        public MailClient(SmtpClient smtpClient) =>
+            _smtpClient = smtpClient;
 
         public Task SendAsync(MailMessage mailMessage) =>
             _smtpClient.SendAsync(CreateMimeMessage(mailMessage));
