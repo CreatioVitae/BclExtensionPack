@@ -13,5 +13,8 @@ namespace System {
 
             return result;
         }
+
+        public static string EncodeBase64String(this string utf8) =>
+            Convert.ToBase64String(Encoding.UTF8.GetBytes(utf8));
     }
 }
