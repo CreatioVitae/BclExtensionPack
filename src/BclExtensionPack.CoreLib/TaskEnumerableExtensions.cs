@@ -42,5 +42,8 @@ namespace System.Threading.Tasks {
             await Task.WhenAll(tasks.Item1, tasks.Item2, tasks.Item3, tasks.Item4, tasks.Item5, tasks.Item6, tasks.Item7, tasks.Item8).ConfigureAwait(false);
             return (tasks.Item1.Result, tasks.Item2.Result, tasks.Item3.Result, tasks.Item4.Result, tasks.Item5.Result, tasks.Item6.Result, tasks.Item7.Result, tasks.Item8.Result);
         }
+
+        public static async ValueTask<IEnumerable<TReloadResult>> ReloadAsync<TSource, TReloadResult>(this Task<IEnumerable<TSource>> task, Func<IEnumerable<TSource>, IEnumerable<TReloadResult>> reloadMethod) =>
+            reloadMethod(await task);
     }
 }
