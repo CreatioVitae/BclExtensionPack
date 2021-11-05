@@ -43,7 +43,7 @@ namespace System.Threading.Tasks {
             return (tasks.Item1.Result, tasks.Item2.Result, tasks.Item3.Result, tasks.Item4.Result, tasks.Item5.Result, tasks.Item6.Result, tasks.Item7.Result, tasks.Item8.Result);
         }
 
-        public static async ValueTask<IEnumerable<TReloadResult>> ReloadAsync<TSource, TReloadResult>(this Task<IEnumerable<TSource>> task, Func<IEnumerable<TSource>, IEnumerable<TReloadResult>> reloadMethod) =>
+        public static async ValueTask<TReloadResult> ReloadAsync<TSource, TReloadResult>(this Task<TSource> task, Func<TSource, TReloadResult> reloadMethod) =>
             reloadMethod(await task);
     }
 }
