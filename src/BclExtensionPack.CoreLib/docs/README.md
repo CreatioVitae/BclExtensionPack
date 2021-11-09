@@ -8,7 +8,7 @@
 `var fugas = await hoges.Select(async x => new { Id = x, Name = await GetNameAsync(x) }).WhenAll();`
 
 ## ValueTupleのWhenAll拡張メソッド(2-8組版まで対応)
-`var (hoge, fuga, piyo) = await (HogeAsync(), FugaAsync(), PiyoAsync()).WhenAll();`
+`var (hoge, fuga, piyo) = await (GetHogeAsync(), GetFugaAsync(), GetPiyoAsync()).WhenAll();`
 
 ## using UriBuilder Extensions
 パスを連結して作りたいケースに対応する。
