@@ -10,9 +10,6 @@ charset = utf-8
 
 # インデントと間隔(indent_sizeも含めたかったが、resx等はindent_size = 2なので、一旦含めない。)
 indent_style = space
-dotnet_diagnostic.CA1827.severity=warning
-dotnet_diagnostic.CA1829.severity=error
-dotnet_diagnostic.CA1828.severity=warning
 
 # Sqlファイル
 [*.sql]
@@ -21,6 +18,14 @@ dotnet_diagnostic.CA1828.severity=warning
 
 # インデントと間隔
 indent_size = 4
+
+# csproj ファイル
+[*.csproj]
+
+#### コア EditorConfig オプション ####
+
+# インデントと間隔
+indent_size = 2
 
 # C# ファイル
 [*.cs]
@@ -225,3 +230,12 @@ dotnet_diagnostic.CS8602.severity = error
 
 # CS8604: Null 参照引数の可能性があります。
 dotnet_diagnostic.CS8604.severity = error
+
+# CA1827：Any（）を使用できる場合は、Count（）またはLongCount（）を使用しないでください
+dotnet_diagnostic.CA1827.severity=warning
+
+# CA1829：使用可能な場合はCount（）の代わりにLength / Countプロパティを使用します
+dotnet_diagnostic.CA1829.severity=error
+
+# CA1828：AnyAsync（）を使用できる場合は、CountAsync（）またはLongCountAsync（）を使用しないでください
+dotnet_diagnostic.CA1828.severity=warning

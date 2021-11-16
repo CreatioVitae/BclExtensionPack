@@ -1,26 +1,24 @@
 using MailKit.Net.Smtp;
-using System.Threading.Tasks;
 
-namespace BclExtensionPack.Mail {
-    internal static class SmtpClientExtensionLibrary {
-        internal static SmtpClient ConnectAndAuthenticate(this SmtpClient smtpClient, Configuration configuration) {
-            smtpClient.Connect(configuration.Host, configuration.Port, configuration.SecureSocketOption);
+namespace BclExtensionPack.Mail;
+internal static class SmtpClientExtensionLibrary {
+    internal static SmtpClient ConnectAndAuthenticate(this SmtpClient smtpClient, Configuration configuration) {
+        smtpClient.Connect(configuration.Host, configuration.Port, configuration.SecureSocketOption);
 
-            if (configuration.Credential.AreNeedAuthentication) {
-                smtpClient.Authenticate(configuration.Credential.UserName, configuration.Credential.Password);
-            }
-
-            return smtpClient;
+        if (configuration.Credential.AreNeedAuthentication) {
+            smtpClient.Authenticate(configuration.Credential.UserName, configuration.Credential.Password);
         }
 
-        internal static async Task<SmtpClient> ConnectAndAuthenticateAsync(this SmtpClient smtpClient, Configuration configuration) {
-            await smtpClient.ConnectAsync(configuration.Host, configuration.Port, configuration.SecureSocketOption).ConfigureAwait(false);
+        return smtpClient;
+    }
 
-            if (configuration.Credential.AreNeedAuthentication) {
-                await smtpClient.AuthenticateAsync(configuration.Credential.UserName, configuration.Credential.Password).ConfigureAwait(false);
-            }
+    internal static async Task<SmtpClient> ConnectAndAuthenticateAsync(this SmtpClient smtpClient, Configuration configuration) {
+        await smtpClient.ConnectAsync(configuration.Host, configuration.Port, configuration.SecureSocketOption).ConfigureAwait(false);
 
-            return smtpClient;
+        if (configuration.Credential.AreNeedAuthentication) {
+            await smtpClient.AuthenticateAsync(configuration.Credential.UserName, configuration.Credential.Password).ConfigureAwait(false);
         }
+
+        return smtpClient;
     }
 }
