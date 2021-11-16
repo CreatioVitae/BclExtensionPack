@@ -1,12 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>0.9.5</Version>
+    <Version>0.9.6</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Vitae</Authors>
-    <PackageReleaseNotes>add ReloadAsync...</PackageReleaseNotes>
+    <Company>Vitae</Company>
+    <PackageReleaseNotes>update dotnet6...</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/CreatioVitae/BclExtensionPack</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>bcl-extension;task-extension;uri-builder-extension</PackageTags>
