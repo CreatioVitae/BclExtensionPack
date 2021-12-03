@@ -3,11 +3,11 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>0.9.6</Version>
+    <Version>0.9.7</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Vitae</Authors>
     <Company>Vitae</Company>
-    <PackageReleaseNotes>update dotnet6...</PackageReleaseNotes>
+    <PackageReleaseNotes>Add IsAny predicate support...</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/CreatioVitae/BclExtensionPack</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>bcl-extension;task-extension;uri-builder-extension</PackageTags>

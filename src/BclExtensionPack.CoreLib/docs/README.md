@@ -14,3 +14,11 @@
 パスを連結して作りたいケースに対応する。
 
 `var hoge = new UriBuilder("www.hoge.co.jp/").UseScheme("https").SetPort(5001).AppendPath("fuga").AppendPath("entry");`
+
+## using Enumerable Extensions
+### AsList(Listにcast出来る場合はcastし、そうでなければToListする。)
+`var hogeList = hoges.AsList();`
+
+## using IsAny<T>(non null且つ、要素が存在するかの検査を行い結果をboolで返却する。)
+`if(hoges.IsAny()){ }`
+`if(hoges.IsAny(hoge => hoge is { fuga : not null })){ }`
