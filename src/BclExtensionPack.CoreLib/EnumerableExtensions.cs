@@ -1,4 +1,5 @@
 namespace System.Linq;
+
 public static class EnumerableExtensions {
     public static List<T> AsList<T>(this IEnumerable<T> source) =>
         (source is List<T> list) ? list : source.ToList();
@@ -36,8 +37,11 @@ public static class EnumerableExtensions {
         await Task.WhenAll(tasks.ToArray()).ConfigureAwait(configureAwait);
     }
 
-    public static bool IsAny<T>([NotNullWhen(true)] this IEnumerable<T>? source) where T : class =>
+    public static bool IsAny<T>([NotNullWhen(true)] this IEnumerable<T>? source) =>
         source is not null && source.Any();
+
+    public static bool IsAny<T>([NotNullWhen(true)] this IEnumerable<T>? source, Func<T, bool> predicate) =>
+        source is not null && source.Any(s => predicate(s));
 
     public static TSource? FirstOrDefault<TSource, TState>(this IEnumerable<TSource> source, Func<TSource, TState, bool> predicate, TState state) {
         if (source is null) {
@@ -56,4 +60,7 @@ public static class EnumerableExtensions {
 
         return default;
     }
+
+    public static IEnumerable<T> WhereNonNull<T>(this IEnumerable<T?> source) =>
+        source.OfType<T>();
 }
