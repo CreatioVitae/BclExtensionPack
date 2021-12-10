@@ -20,5 +20,5 @@
 `var hogeList = hoges.AsList();`
 
 ## using IsAny<T>(non null且つ、要素が存在するかの検査を行い結果をboolで返却する。)
-`if(hoges.IsAny()){ }`
+`if(hoges.IsAny()){ }`  
 `if(hoges.IsAny(hoge => hoge is { fuga : not null })){ }`
