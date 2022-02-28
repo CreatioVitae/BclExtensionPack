@@ -3,11 +3,11 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>0.9.7</Version>
+    <Version>0.9.8</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Vitae</Authors>
     <Company>Vitae</Company>
-    <PackageReleaseNotes>Add IsAny predicate support...</PackageReleaseNotes>
+    <PackageReleaseNotes>add bool.ToInt Extension method...</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/CreatioVitae/BclExtensionPack</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>bcl-extension;task-extension;uri-builder-extension</PackageTags>
