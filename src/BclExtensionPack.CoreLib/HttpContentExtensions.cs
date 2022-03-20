@@ -21,4 +21,39 @@ public static class HttpContentExtensions {
 
         return content;
     }
+
+    const HttpCompletionOption defaultCompletionOption = HttpCompletionOption.ResponseContentRead;
+
+    static Uri? CreateUri(string? uri) =>
+        uri.IsNullOrWhiteSpace()
+            ? null
+            : (new(uri, UriKind.RelativeOrAbsolute));
+
+    public static Task<HttpResponseMessage> HeadAsync(this HttpClient httpClient, string? requestUri) =>
+        httpClient.HeadAsync(CreateUri(requestUri));
+
+    public static Task<HttpResponseMessage> HeadAsync(this HttpClient httpClient, Uri? requestUri) =>
+        httpClient.HeadAsync(requestUri, defaultCompletionOption);
+
+    public static Task<HttpResponseMessage> HeadAsync(this HttpClient httpClient, string? requestUri, HttpCompletionOption completionOption) =>
+        httpClient.HeadAsync(CreateUri(requestUri), completionOption);
+
+    public static Task<HttpResponseMessage> HeadAsync(this HttpClient httpClient, Uri? requestUri, HttpCompletionOption completionOption) =>
+        httpClient.HeadAsync(requestUri, completionOption, CancellationToken.None);
+
+    public static Task<HttpResponseMessage> HeadAsync(this HttpClient httpClient, string? requestUri, CancellationToken cancellationToken) =>
+        httpClient.HeadAsync(CreateUri(requestUri), cancellationToken);
+
+    public static Task<HttpResponseMessage> HeadAsync(this HttpClient httpClient, Uri? requestUri, CancellationToken cancellationToken) =>
+        httpClient.HeadAsync(requestUri, defaultCompletionOption, cancellationToken);
+
+    public static Task<HttpResponseMessage> HeadAsync(this HttpClient httpClient, string? requestUri, HttpCompletionOption completionOption, CancellationToken cancellationToken) =>
+        httpClient.HeadAsync(CreateUri(requestUri), completionOption, cancellationToken);
+
+    public static Task<HttpResponseMessage> HeadAsync(this HttpClient httpClient, Uri? requestUri, HttpCompletionOption completionOption,
+        CancellationToken cancellationToken) =>
+        httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Head, requestUri), completionOption, cancellationToken);
+
+    public static string? GetMediaType(this HttpContent content) =>
+        content.Headers.ContentType?.MediaType;
 }
