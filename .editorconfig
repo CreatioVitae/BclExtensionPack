@@ -246,6 +246,9 @@ dotnet_diagnostic.CS8602.severity = error
 # CS8604: Null 参照引数の可能性があります。
 dotnet_diagnostic.CS8604.severity = error
 
+# null リテラルを null 非許容参照型に変換できません。
+dotnet_diagnostic.CS8625.severity = error
+
 # CA1827：Any（）を使用できる場合は、Count（）またはLongCount（）を使用しないでください
 dotnet_diagnostic.CA1827.severity=warning
 
