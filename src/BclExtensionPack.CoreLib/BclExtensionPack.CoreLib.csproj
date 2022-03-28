@@ -3,11 +3,11 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>0.9.13</Version>
+    <Version>0.9.14</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Vitae</Authors>
     <Company>Vitae</Company>
-    <PackageReleaseNotes>add HttpContent.GetAsync Extension method...</PackageReleaseNotes>
+    <PackageReleaseNotes>add Task.HttpResponseMessage.IfStatusCodeIsAllowed method...</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/CreatioVitae/BclExtensionPack</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>bcl-extension;task-extension;uri-builder-extension</PackageTags>
