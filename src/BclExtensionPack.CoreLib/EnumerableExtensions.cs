@@ -9,7 +9,9 @@ public static class EnumerableExtensions {
 
     public static async Task ForEachAsync<T>(this IEnumerable<T>? sources, Func<T, Task>? func, int concurrency, bool configureAwait = false, CancellationToken cancellationToken = default) {
         if (sources is null || !sources.Any()) { throw new ArgumentNullException(nameof(sources)); }
+
         if (func is null) { throw new ArgumentNullException(nameof(func)); }
+
         if (concurrency <= 0) { throw new ArgumentOutOfRangeException($"{nameof(concurrency)}は1以上、{int.MaxValue}以下に設定してください。但し、同時並列数は現実的な範囲内で設定することをお勧めします。"); }
 
         using var semaphore = new SemaphoreSlim(initialCount: concurrency, maxCount: concurrency);
@@ -18,6 +20,7 @@ public static class EnumerableExtensions {
 
         foreach (var item in sources) {
             if (exceptionCount > 0) { break; }
+
             cancellationToken.ThrowIfCancellationRequested();
 
             await semaphore.WaitAsync(cancellationToken).ConfigureAwait(configureAwait);

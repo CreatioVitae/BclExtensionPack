@@ -8,6 +8,10 @@ public class StringExtensionsTest {
         Assert.Equal("Hoge", "HogeAsync".Remove("Async"));
 
     [Fact]
-    public void RemoveKeywordTestNg() =>
+    public void RemoveAllKeywordTest() =>
     Assert.Equal("Hoge", "HogeAsyncAsync".Remove("Async"));
+
+    [Fact]
+    public void RemoveFirstKeywordTest() =>
+    Assert.Equal("HogeAsync", "AsyncHogeAsync".RemoveFirst("Async"));
 }
