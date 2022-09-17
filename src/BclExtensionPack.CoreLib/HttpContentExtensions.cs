@@ -1,4 +1,5 @@
 using System.Net.Http.Headers;
+using System.Xml.Serialization;
 using Utf8Json;
 using Utf8Json.Resolvers;
 
@@ -20,6 +21,14 @@ public static class HttpContentExtensions {
         content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
         return content;
+    }
+
+    public static async ValueTask<T> GetFromXmlAsync<T>(this HttpContent content) {
+        await using var responseStream = await content.ReadAsStreamAsync();
+
+        return new XmlSerializer(typeof(T)).Deserialize(responseStream) is not object deserialized
+            ? throw new FormatException($"{nameof(content)}の形式が{nameof(T)}と異なるため、デシリアライズ出来ません。")
+            : (T)deserialized;
     }
 
     const HttpCompletionOption defaultCompletionOption = HttpCompletionOption.ResponseContentRead;
