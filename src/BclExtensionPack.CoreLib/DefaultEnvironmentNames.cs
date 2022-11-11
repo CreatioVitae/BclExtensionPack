@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Configuration;
+
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.Hosting;
 public static class DefaultEnvironmentNames {
@@ -28,4 +30,13 @@ public interface IDefaultEnvironmentAccessor {
     public bool IsProduction();
 
     public bool IsNotProduction();
+}
+
+public static class DefaultEnvironmentAccessorExtensions {
+    public static IConfiguration CreateConfiguration(this IDefaultEnvironmentAccessor defaultEnvironment) =>
+        new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{defaultEnvironment.GetEnvironmentName()}.json", optional: true)
+            .AddEnvironmentVariables()
+            .Build();
 }
