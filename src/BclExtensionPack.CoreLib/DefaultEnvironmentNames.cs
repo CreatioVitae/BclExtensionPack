@@ -33,10 +33,27 @@ public interface IDefaultEnvironmentAccessor {
 }
 
 public static class DefaultEnvironmentAccessorExtensions {
-    public static IConfiguration CreateConfiguration(this IDefaultEnvironmentAccessor defaultEnvironment) =>
-        new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .AddJsonFile($"appsettings.{defaultEnvironment.GetEnvironmentName()}.json", optional: true)
+    public static IConfiguration CreateConfiguration(this IDefaultEnvironmentAccessor defaultEnvironment, string? basePath = default, string? overrideJsonFilePath = default) {
+
+        var configurationBuilder = new ConfigurationBuilder();
+
+        //SetBasePath...
+        if (basePath is not null) {
+            configurationBuilder.SetBasePath(basePath);
+        }
+
+        // AddJsonFile...
+        if (overrideJsonFilePath is null) {
+            configurationBuilder
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{defaultEnvironment.GetEnvironmentName()}.json", optional: true);
+        }
+        else {
+            configurationBuilder.AddJsonFile(overrideJsonFilePath, optional: false);
+        }
+
+        return configurationBuilder
             .AddEnvironmentVariables()
             .Build();
+    }
 }
