@@ -1,3 +1,4 @@
+// ReSharper disable once CheckNamespace
 namespace System;
 public static class DecimalExtensions {
     public static int ToInt(this decimal target, RoundingType roundingType = RoundingType.EvenUp) =>
