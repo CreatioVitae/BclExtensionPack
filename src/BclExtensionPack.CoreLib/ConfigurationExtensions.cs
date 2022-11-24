@@ -13,7 +13,7 @@ public static class ConfigurationExtensions {
         return obj;
     }
 
-    public static string GetAvailableValueFromKey(this IConfiguration configuration, string key) {
+    public static string GetAvailableValueByKey(this IConfiguration configuration, string key) {
         var valueOrDefault = configuration[key];
 
         ArgumentNullException.ThrowIfNull(valueOrDefault);
