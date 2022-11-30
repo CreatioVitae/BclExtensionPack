@@ -19,8 +19,8 @@ public class MailMessage {
 
     internal Encoding Encoding { get; }
 
-    public MailMessage(string subject, (bool isHtml, string text) body, (string name, string address) from, IEnumerable<(string name, string address)> to,
-        IEnumerable<(string name, string address)>? cc = default, IEnumerable<(string name, string address)>? bcc = default, Encoding? encoding = default) {
+    public MailMessage(string subject, (bool isHtml, string text) body, (string? name, string address) from, IEnumerable<(string? name, string address)> to,
+        IEnumerable<(string? name, string address)>? cc = default, IEnumerable<(string? name, string address)>? bcc = default, Encoding? encoding = default) {
 
         //Todo:Validation.
         Encoding = encoding ?? Encoding.GetEncoding("iso-2022-jp");
