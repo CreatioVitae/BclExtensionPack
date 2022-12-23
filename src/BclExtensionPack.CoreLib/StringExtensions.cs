@@ -25,7 +25,7 @@ public static class StringExtensions {
     public static string RemoveFirst(this string? s, string keyword) {
         ArgumentNullException.ThrowIfNull(s);
 
-        if (s.IndexOf(keyword) is int firstKeywordFoundIndex && firstKeywordFoundIndex is - 1) {
+        if (s.IndexOf(keyword) is int firstKeywordFoundIndex && firstKeywordFoundIndex is -1) {
             return s;
         }
 

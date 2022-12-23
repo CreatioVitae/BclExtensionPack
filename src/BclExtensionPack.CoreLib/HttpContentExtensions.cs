@@ -1,20 +1,33 @@
 using System.Net.Http.Headers;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Text.Unicode;
 using System.Xml.Serialization;
-using Utf8Json;
-using Utf8Json.Resolvers;
 
 namespace System.Net.Http;
 public static class HttpContentExtensions {
-    public static async ValueTask<T> GetAsync<T>(this HttpContent content, IJsonFormatterResolver? resolver = null) {
-        resolver ??= StandardResolver.Default;
+    static readonly JsonSerializerOptions JsonSerializerOptionsDefault = new() {
+        Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+        WriteIndented = true,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+    };
 
-        return JsonSerializer.Deserialize<T>(await content.ReadAsByteArrayAsync(), resolver);
+    public static async ValueTask<T> GetAsync<T>(this HttpContent content, JsonSerializerOptions? resolver = null, CancellationToken cancellationToken = default) {
+        resolver ??= JsonSerializerOptionsDefault;
+
+        var getResult = await JsonSerializer.DeserializeAsync<T>(await content.ReadAsStreamAsync(cancellationToken), resolver, cancellationToken);
+
+        ArgumentNullException.ThrowIfNull(getResult);
+
+        return getResult;
     }
 
-    public static HttpContent CreateJsonHttpContent<T>(this T value, IJsonFormatterResolver? resolver = null) where T : class {
-        resolver ??= StandardResolver.Default;
+    public static HttpContent CreateJsonHttpContent<T>(this T value, JsonSerializerOptions? resolver = null, CancellationToken cancellationToken = default) where T : class {
+        resolver ??= JsonSerializerOptionsDefault;
 
-        var byteArray = JsonSerializer.Serialize(value, resolver);
+        var byteArray = JsonSerializer.SerializeToUtf8Bytes(value, resolver);
 
         var content = new ByteArrayContent(byteArray);
 
