@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Version>0.1.2</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Vitae</Authors>
+    <Company>Vitae</Company>
+    <PackageReleaseNotes>Use BclExtensionPack.CoreLib.</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/CreatioVitae/BclExtensionPack</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>gcs;api-client;DI;</PackageTags>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="docs\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BclExtensionPack.CoreLib" Version="0.10.2" />
+    <PackageReference Include="BclExtensionPack.CoreLib.Gcp" Version="0.1.2" />
+  </ItemGroup>
+
+</Project>
