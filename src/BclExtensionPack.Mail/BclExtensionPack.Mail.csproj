@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>0.4.3</Version>
+    <Version>0.4.4</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Vitae</Authors>
     <Company>Vitae</Company>
@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="3.4.3" />
+    <PackageReference Include="MailKit" Version="3.6.0" />
   </ItemGroup>
   <ItemGroup>
     <None Include="docs\README.md" Pack="true" PackagePath="\" />
