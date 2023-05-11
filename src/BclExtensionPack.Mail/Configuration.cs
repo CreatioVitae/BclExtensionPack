@@ -1,4 +1,5 @@
 using MailKit.Security;
+using MimeKit;
 
 namespace BclExtensionPack.Mail;
 public class Configuration {
@@ -22,4 +23,7 @@ public class Configuration {
             ? secureSocketOptionEnum
             : SecureSocketOptions.StartTlsWhenAvailable;
     }
+
+    public static void RelaxParserConstraints() =>
+        ParserOptions.Default.AddressParserComplianceMode = RfcComplianceMode.Looser;
 }
