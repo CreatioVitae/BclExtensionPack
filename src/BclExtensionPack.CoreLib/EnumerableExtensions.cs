@@ -28,7 +28,7 @@ public static class EnumerableExtensions {
             var task = func.Invoke(item).ContinueWith(t => {
                 semaphore.Release();
 
-                if (t.IsFaulted && t.Exception is not null) {
+                if (t is { IsFaulted: true, Exception: { } }) {
                     Interlocked.Increment(ref exceptionCount);
                     throw t.Exception;
                 }
@@ -44,7 +44,7 @@ public static class EnumerableExtensions {
         source is not null && source.Any();
 
     public static bool IsAny<T>([NotNullWhen(true)] this IEnumerable<T>? source, Func<T, bool> predicate) =>
-        source is not null && source.Any(s => predicate(s));
+        source is not null && source.Any(predicate);
 
     public static TSource? FirstOrDefault<TSource, TState>(this IEnumerable<TSource> source, Func<TSource, TState, bool> predicate, TState state) {
         if (source is null) {
