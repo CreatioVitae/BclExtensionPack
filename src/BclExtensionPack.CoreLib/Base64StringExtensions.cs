@@ -1,5 +1,6 @@
 using System.Text;
 
+// ReSharper disable once CheckNamespace
 namespace System;
 
 public static class Base64StringExtensions {
@@ -7,7 +8,7 @@ public static class Base64StringExtensions {
         Span<byte> bytes = stackalloc byte[256];
 
         (var result, utf8) = Convert.TryFromBase64String(base64, bytes, out var bytesWritten)
-            ? (true, Encoding.UTF8.GetString(bytes.Slice(0, bytesWritten)))
+            ? (true, Encoding.UTF8.GetString(bytes[..bytesWritten]))
             : (false, null);
 
         return result;

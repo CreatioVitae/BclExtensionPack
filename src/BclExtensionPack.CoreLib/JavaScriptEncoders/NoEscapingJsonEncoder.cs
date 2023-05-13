@@ -33,7 +33,7 @@ public class NoEscapingJsonEncoder : JavaScriptEncoder {
             _ => null,
         };
 
-        if (escapeChar is char notNull) {
+        if (escapeChar is { } notNull) {
             if (bufferLength < 2) {
                 numberOfCharactersWritten = 0;
                 return false;

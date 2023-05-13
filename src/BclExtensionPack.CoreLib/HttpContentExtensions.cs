@@ -21,7 +21,7 @@ public static class HttpContentExtensions {
         return getResult;
     }
 
-    public static HttpContent CreateJsonHttpContent<T>(this T value, IJsonFormatterResolver? resolver = null, CancellationToken cancellationToken = default) where T : class {
+    public static HttpContent CreateJsonHttpContent<T>(this T value, IJsonFormatterResolver? resolver = null) where T : class {
         resolver ??= StandardResolver.ExcludeNullCamelCase;
 
         var byteArray = JsonSerializer.SerializeToUtf8Bytes(value, resolver.GetJsonSerializerOptions());
