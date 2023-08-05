@@ -3,11 +3,11 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>0.10.3</Version>
+    <Version>0.11.1</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Vitae</Authors>
     <Company>Vitae</Company>
-    <PackageReleaseNotes>upgrade package.</PackageReleaseNotes>
+    <PackageReleaseNotes>Add AsyncEnumerableExtensions.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/CreatioVitae/BclExtensionPack</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>bcl-extension;task-extension;uri-builder-extension</PackageTags>
@@ -19,6 +19,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
     <PackageReference Include="SkiaSharp" Version="2.88.3" />
+    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
     <PackageReference Include="ZString" Version="2.5.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
