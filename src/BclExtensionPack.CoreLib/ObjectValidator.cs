@@ -11,7 +11,7 @@ public static class ObjectValidator {
         return validationResult;
     }
 
-    public static void ThrowIfInvalidate(object origin) {
+    public static void ThrowIfInvalid(object origin) {
         var validationResult = new List<ValidationResult>();
 
         if (!Validator.TryValidateObject(origin, new ValidationContext(origin), validationResult, true)) {
