@@ -1,8 +1,11 @@
 using MimeKit;
 using MimeKit.Text;
+using System.IO;
 using System.Text;
+using System.Threading;
 
 namespace BclExtensionPack.Mail;
+
 public class MailMessage {
 
     internal MailboxAddress From { get; }
@@ -15,12 +18,14 @@ public class MailMessage {
 
     internal string Subject { get; }
 
-    internal TextPart Body { get; }
+    internal MimeEntity Body { get; }
 
     internal Encoding Encoding { get; }
 
-    public MailMessage(string subject, (bool isHtml, string text) body, (string? name, string address) from, IEnumerable<(string? name, string address)> to,
-        IEnumerable<(string? name, string address)>? cc = default, IEnumerable<(string? name, string address)>? bcc = default, Encoding? encoding = default) {
+    public MailMessage(string subject, (bool isHtml, string text) body, (string? name, string address) from,
+        IEnumerable<(string? name, string address)> to,
+        IEnumerable<(string? name, string address)>? cc = default,
+        IEnumerable<(string? name, string address)>? bcc = default, Encoding? encoding = default) {
 
         //Todo:Validation.
         Encoding = encoding ?? Encoding.GetEncoding("iso-2022-jp");
@@ -38,5 +43,49 @@ public class MailMessage {
         }
 
         Body = CreateMailBody(body.isHtml, body.text, Encoding);
+    }
+
+    MailMessage(string subject, MimeEntity body, MailboxAddress from, IEnumerable<MailboxAddress> to,
+        IEnumerable<MailboxAddress>? cc, IEnumerable<MailboxAddress>? bcc, Encoding encoding) {
+        Encoding = encoding;
+        From = from;
+        To = to;
+        Cc = cc;
+        Bcc = bcc;
+        Subject = subject;
+        Body = body;
+    }
+
+    public static async ValueTask<MailMessage> CreateMailMessageAsync(string subject, (string text, string html) body,
+        (string? name, string address) from, IEnumerable<(string? name, string address)> to,
+        IEnumerable<(string? name, string address)>? cc = default,
+        IEnumerable<(string? name, string address)>? bcc = default, Encoding? encoding = default,
+        CancellationToken cancellationToken = default) {
+
+        static async ValueTask<MimeEntity> CreateMailBodyAsync(string text, string html, Encoding enc, CancellationToken cancellationToken) {
+            using var textMemoryStream = new MemoryStream(enc.GetBytes(text));
+
+            using var htmlMemoryStream = new MemoryStream(enc.GetBytes(html));
+
+            using var textStreamReader = new StreamReader(textMemoryStream);
+
+            using var htmlStreamReader = new StreamReader(htmlMemoryStream);
+
+            var (textBody, htmlBody) = await (textStreamReader.ReadToEndAsync(cancellationToken), htmlStreamReader.ReadToEndAsync(cancellationToken)).WhenAll();
+
+            return new BodyBuilder { TextBody = textBody, HtmlBody = htmlBody }.ToMessageBody();
+        }
+
+        encoding ??= Encoding.GetEncoding("iso-2022-jp");
+
+        return new(
+            subject,
+            await CreateMailBodyAsync(body.text, body.html, encoding, cancellationToken),
+            new(encoding, from.name, from.address),
+            to.Select(item => new MailboxAddress(encoding, item.name, item.address)),
+            cc?.Select(item => new MailboxAddress(encoding, item.name, item.address)),
+            bcc?.Select(item => new MailboxAddress(encoding, item.name, item.address)),
+            encoding
+        );
     }
 }
