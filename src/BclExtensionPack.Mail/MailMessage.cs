@@ -56,31 +56,31 @@ public class MailMessage {
         Body = body;
     }
 
-    public static async ValueTask<MailMessage> CreateMailMessageAsync(string subject, (string text, string html) body,
+    public static MailMessage CreateMultiPartMailMessage(string subject, (string text, string html) body,
         (string? name, string address) from, IEnumerable<(string? name, string address)> to,
         IEnumerable<(string? name, string address)>? cc = default,
-        IEnumerable<(string? name, string address)>? bcc = default, Encoding? encoding = default,
-        CancellationToken cancellationToken = default) {
+        IEnumerable<(string? name, string address)>? bcc = default, Encoding? encoding = default) {
 
-        static async ValueTask<MimeEntity> CreateMailBodyAsync(string text, string html, Encoding enc, CancellationToken cancellationToken) {
-            using var textMemoryStream = new MemoryStream(enc.GetBytes(text));
+        static MimeEntity CreateMailBody(string text, string html, Encoding enc) {
+            var textPart = new TextPart(TextFormat.Plain);
+            textPart.SetText(enc, text);
 
-            using var htmlMemoryStream = new MemoryStream(enc.GetBytes(html));
+            var htmlPart = new TextPart(TextFormat.Html);
+            htmlPart.SetText(enc, html);
 
-            using var textStreamReader = new StreamReader(textMemoryStream);
+            var multipart = new Multipart("mixed") {
+                textPart,
+                htmlPart
+            };
 
-            using var htmlStreamReader = new StreamReader(htmlMemoryStream);
-
-            var (textBody, htmlBody) = await (textStreamReader.ReadToEndAsync(cancellationToken), htmlStreamReader.ReadToEndAsync(cancellationToken)).WhenAll();
-
-            return new BodyBuilder { TextBody = textBody, HtmlBody = htmlBody }.ToMessageBody();
+            return multipart;
         }
 
         encoding ??= Encoding.GetEncoding("iso-2022-jp");
 
         return new(
             subject,
-            await CreateMailBodyAsync(body.text, body.html, encoding, cancellationToken),
+            CreateMailBody(body.text, body.html, encoding),
             new(encoding, from.name, from.address),
             to.Select(item => new MailboxAddress(encoding, item.name, item.address)),
             cc?.Select(item => new MailboxAddress(encoding, item.name, item.address)),

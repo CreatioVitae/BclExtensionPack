@@ -43,7 +43,6 @@ public class MailClient : IDisposable {
 
         message.SetSubject(mailMessage);
         message.Body = mailMessage.Body;
-        message.Body.ContentType.CharsetEncoding = mailMessage.Encoding;
         message.From.Add(mailMessage.From);
         message.To.AddRange(mailMessage.To);
 
