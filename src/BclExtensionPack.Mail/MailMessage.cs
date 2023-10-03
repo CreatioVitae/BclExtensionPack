@@ -1,8 +1,6 @@
 using MimeKit;
 using MimeKit.Text;
-using System.IO;
 using System.Text;
-using System.Threading;
 
 namespace BclExtensionPack.Mail;
 
@@ -68,7 +66,7 @@ public class MailMessage {
             var htmlPart = new TextPart(TextFormat.Html);
             htmlPart.SetText(enc, html);
 
-            var multipart = new Multipart("mixed") {
+            var multipart = new Multipart("alternative") {
                 textPart,
                 htmlPart
             };
