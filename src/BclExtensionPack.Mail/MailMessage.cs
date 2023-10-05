@@ -3,6 +3,7 @@ using MimeKit.Text;
 using System.Text;
 
 namespace BclExtensionPack.Mail;
+
 public class MailMessage {
 
     internal MailboxAddress From { get; }
@@ -15,12 +16,14 @@ public class MailMessage {
 
     internal string Subject { get; }
 
-    internal TextPart Body { get; }
+    internal MimeEntity Body { get; }
 
     internal Encoding Encoding { get; }
 
-    public MailMessage(string subject, (bool isHtml, string text) body, (string? name, string address) from, IEnumerable<(string? name, string address)> to,
-        IEnumerable<(string? name, string address)>? cc = default, IEnumerable<(string? name, string address)>? bcc = default, Encoding? encoding = default) {
+    public MailMessage(string subject, (bool isHtml, string text) body, (string? name, string address) from,
+        IEnumerable<(string? name, string address)> to,
+        IEnumerable<(string? name, string address)>? cc = default,
+        IEnumerable<(string? name, string address)>? bcc = default, Encoding? encoding = default) {
 
         //Todo:Validation.
         Encoding = encoding ?? Encoding.GetEncoding("iso-2022-jp");
@@ -38,5 +41,49 @@ public class MailMessage {
         }
 
         Body = CreateMailBody(body.isHtml, body.text, Encoding);
+    }
+
+    MailMessage(string subject, MimeEntity body, MailboxAddress from, IEnumerable<MailboxAddress> to,
+        IEnumerable<MailboxAddress>? cc, IEnumerable<MailboxAddress>? bcc, Encoding encoding) {
+        Encoding = encoding;
+        From = from;
+        To = to;
+        Cc = cc;
+        Bcc = bcc;
+        Subject = subject;
+        Body = body;
+    }
+
+    public static MailMessage CreateMultiPartMailMessage(string subject, (string text, string html) body,
+        (string? name, string address) from, IEnumerable<(string? name, string address)> to,
+        IEnumerable<(string? name, string address)>? cc = default,
+        IEnumerable<(string? name, string address)>? bcc = default, Encoding? encoding = default) {
+
+        static MimeEntity CreateMailBody(string text, string html, Encoding enc) {
+            var textPart = new TextPart(TextFormat.Plain);
+            textPart.SetText(enc, text);
+
+            var htmlPart = new TextPart(TextFormat.Html);
+            htmlPart.SetText(enc, html);
+
+            var multipart = new Multipart("alternative") {
+                textPart,
+                htmlPart
+            };
+
+            return multipart;
+        }
+
+        encoding ??= Encoding.GetEncoding("iso-2022-jp");
+
+        return new(
+            subject,
+            CreateMailBody(body.text, body.html, encoding),
+            new(encoding, from.name, from.address),
+            to.Select(item => new MailboxAddress(encoding, item.name, item.address)),
+            cc?.Select(item => new MailboxAddress(encoding, item.name, item.address)),
+            bcc?.Select(item => new MailboxAddress(encoding, item.name, item.address)),
+            encoding
+        );
     }
 }
