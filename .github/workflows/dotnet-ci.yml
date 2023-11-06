@@ -21,11 +21,6 @@ jobs:
         ports:
           - "1025:1025"                                                     
           - "1080:1080"
-        options: >-
-          --health-cmd "curl --fail tcp://127.0.0.1:1025 || exit 1"
-          --health-interval 12s
-          --health-timeout 10s
-          --health-retries 5
 
     steps:
     - uses: actions/checkout@v2
@@ -37,5 +32,11 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
+    - name: Ping transaction-mail-server
+      run: |
+        until curl --fail tcp://127.0.0.1:1025; do
+          echo "transaction-mail-server is not responding, retrying..."
+          sleep 5
+        done
     - name: Test
       run: dotnet test --no-restore --verbosity normal
