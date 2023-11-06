@@ -2,11 +2,30 @@ name: .NET CI
 
 on:
   pull_request:
-    types: [opened]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    services:
+      redis:
+        image: redis
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      transaction-mail-server:                                                     
+        image: schickling/mailcatcher:latest
+        ports:
+          - "1025:1025"                                                     
+          - "1080:1080"
+        options: >-
+          --health-cmd "curl --fail tcp://localhost:1025 || exit 1"
+          --health-interval 12s
+          --health-timeout 10s
+          --health-retries 5
 
     steps:
     - uses: actions/checkout@v2
