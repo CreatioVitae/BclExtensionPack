@@ -34,9 +34,16 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Ping transaction-mail-server
       run: |
-        until curl --fail tcp://127.0.0.1:1025; do
+        for i in {1..5}; do
+          if curl --fail tcp://transaction-mail-server:1025; then
+            break
+          fi
           echo "transaction-mail-server is not responding, retrying..."
           sleep 5
+          if [ $i -eq 5 ]; then
+            echo "transaction-mail-server failed to respond after 5 retries"
+            exit 1
+          fi
         done
     - name: Test
       run: dotnet test --no-restore --verbosity normal
