@@ -35,7 +35,7 @@ jobs:
     - name: Ping transaction-mail-server
       run: |
         for i in {1..5}; do
-          if curl --fail tcp://transaction-mail-server:1025; then
+          if curl --fail http://transaction-mail-server:1080; then
             break
           fi
           echo "transaction-mail-server is not responding, retrying..."
