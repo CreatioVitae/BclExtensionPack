@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+  transaction-mail-servers:
+    container_name: transaction-mail-servers
+    image: schickling/mailcatcher:latest
+    ports: 
+      - "2099:1025"
+      - "1494:1080"
