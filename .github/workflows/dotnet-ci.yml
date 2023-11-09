@@ -48,5 +48,5 @@ jobs:
     - name: Test
       run: dotnet test --no-restore --verbosity normal
       env:
-        mailSettings__host: transaction-mail-server
+        mailSettings__host: 127.0.0.1
         mailSettings__port: 1025
