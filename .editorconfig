@@ -10,6 +10,21 @@ charset = utf-8
 
 # インデントと間隔(indent_sizeも含めたかったが、resx等はindent_size = 2なので、一旦含めない。)
 indent_style = space
+tab_width = 4
+indent_size = 4
+dotnet_style_operator_placement_when_wrapping = beginning_of_line
+end_of_line = crlf
+dotnet_style_qualification_for_field = false:warning
+dotnet_style_qualification_for_property = false:warning
+dotnet_style_qualification_for_method = false:warning
+dotnet_style_qualification_for_event = false:warning
+dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity:silent
+dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:silent
+dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:silent
+dotnet_style_parentheses_in_other_operators = never_if_unnecessary:silent
+dotnet_code_quality_unused_parameters = all:suggestion
+dotnet_style_readonly_field = true:suggestion
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:silent
 
 # Sqlファイル
 [*.sql]
@@ -27,8 +42,25 @@ indent_size = 4
 # インデントと間隔
 indent_size = 2
 
+[*.runsettings]
+
+#### コア EditorConfig オプション ####
+
+# インデントと間隔
+indent_size = 2
+
+# Json ファイル
+[*.json]
+
+#### コア EditorConfig オプション ####
+
+# インデントと間隔
+indent_size = 2
+
 # C# ファイル
 [*.cs]
+
+#### コア EditorConfig オプション ####
 
 # インデントと間隔
 indent_size = 4
@@ -127,7 +159,7 @@ csharp_preferred_modifier_order = public,private,protected,internal,static,exter
 # コード ブロックの設定
 csharp_prefer_braces = true:warning
 csharp_prefer_simple_using_statement = true:suggestion
-csharp_style_prefer_extended_property_pattern = true:suggestion
+csharp_style_namespace_declarations = file_scoped:suggestion
 
 # 式レベルの設定（Defaultは簡易記述推奨。throwもステートメントより式推奨。）
 csharp_prefer_simple_default_expression = true:warning
@@ -257,3 +289,6 @@ dotnet_diagnostic.CA1829.severity=error
 
 # CA1828：AnyAsync（）を使用できる場合は、CountAsync（）またはLongCountAsync（）を使用しないでください
 dotnet_diagnostic.CA1828.severity=warning
+csharp_style_prefer_method_group_conversion = true:silent
+csharp_style_prefer_top_level_statements = true:silent
+csharp_style_prefer_extended_property_pattern = true:suggestion
