@@ -28,9 +28,6 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '7.0.x'
-      env:
-        mailSettings__host: transaction-mail-server
-        mailSettings__port: 1025
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
@@ -50,3 +47,6 @@ jobs:
         done
     - name: Test
       run: dotnet test --no-restore --verbosity normal
+      env:
+        mailSettings__host: transaction-mail-server
+        mailSettings__port: 1025
