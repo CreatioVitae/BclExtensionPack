@@ -1,21 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>0.5.4</Version>
+    <Version>0.6.1</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Vitae</Authors>
     <Company>Vitae</Company>
-    <PackageReleaseNotes>add CreateMailMessageAsync api.</PackageReleaseNotes>
+    <PackageReleaseNotes>upgrade dotnet version(7.0 =&gt; 8.0)</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/CreatioVitae/BclExtensionPack</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>mail-client-creator</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BclExtensionPack.CoreLib" Version="0.14.1" />
-    <PackageReference Include="MailKit" Version="4.2.0" />
+    <PackageReference Include="BclExtensionPack.CoreLib" Version="0.15.1" />
+    <PackageReference Include="MailKit" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
     <None Include="docs\README.md" Pack="true" PackagePath="\" />
