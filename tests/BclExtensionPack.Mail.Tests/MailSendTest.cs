@@ -3,18 +3,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BclExtensionPack.Mail.Tests;
 
-public class MailSendTest : IDisposable, IClassFixture<TestContext> {
+public class MailSendTest(TestContext testContext) : IDisposable, IClassFixture<TestContext> {
+    TestContext TestContext { get; } = testContext;
 
-    TestContext TestContext { get; }
-
-    /// <summary>
-    /// setup
-    /// </summary>
-    /// <param name="testContext"></param>
-    public MailSendTest(TestContext testContext) =>
-        TestContext = testContext;
-
-    [Fact(DisplayName = "ƒ[ƒ‹‘—MƒeƒXƒg")]
+    [Fact(DisplayName = "ãƒ¡ãƒ¼ãƒ«é€ä¿¡ãƒ†ã‚¹ãƒˆ")]
     public async Task SendMailTestAsync() {
         using var mailClient = await MailClient.CreateAsync(
             new(
@@ -28,14 +20,14 @@ public class MailSendTest : IDisposable, IClassFixture<TestContext> {
 
         await mailClient.SendAsync(
             new(
-                "ƒeƒXƒgƒ^ƒCƒgƒ‹",
-                (isHtml: false, text: "ƒeƒXƒg–{•¶"),
-                ("ƒeƒXƒg·ol", "fromaddr@example.com"),
+                "ãƒ†ã‚¹ãƒˆã‚¿ã‚¤ãƒˆãƒ«",
+                (isHtml: false, text: "ãƒ†ã‚¹ãƒˆæœ¬æ–‡"),
+                ("ãƒ†ã‚¹ãƒˆå·®å‡ºäºº", "fromaddr@example.com"),
                 new (string? name, string address)[] { (name: null, address: "toaddr@example.com") }.AsEnumerable())
         );
     }
 
-    [Fact(DisplayName = "ƒ[ƒ‹‘—MƒeƒXƒg")]
+    [Fact(DisplayName = "ãƒ¡ãƒ¼ãƒ«é€ä¿¡ãƒ†ã‚¹ãƒˆ")]
     public async Task SendMailTestAsync_CaseTextAndHtml() {
         using var mailClient = await MailClient.CreateAsync(
             new(
@@ -49,9 +41,9 @@ public class MailSendTest : IDisposable, IClassFixture<TestContext> {
 
         await mailClient.SendAsync(
             MailMessage.CreateMultiPartMailMessage(
-                "ƒeƒXƒgƒ^ƒCƒgƒ‹‚»‚Ì‚Q",
-                (text: "ƒeƒXƒg–{•¶PlainText", html: "<p>ƒeƒXƒg–{•¶Html</p>"),
-                ("ƒeƒXƒg·ol", "fromaddr@example.com"),
+                "ãƒ†ã‚¹ãƒˆã‚¿ã‚¤ãƒˆãƒ«ãã®ï¼’",
+                (text: "ãƒ†ã‚¹ãƒˆæœ¬æ–‡PlainText", html: "<p>ãƒ†ã‚¹ãƒˆæœ¬æ–‡Html</p>"),
+                ("ãƒ†ã‚¹ãƒˆå·®å‡ºäºº", "fromaddr@example.com"),
                 new (string? name, string address)[] { (name: null, address: "toaddr@example.com") }.AsEnumerable())
         );
     }
