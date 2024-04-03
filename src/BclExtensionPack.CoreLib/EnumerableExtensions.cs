@@ -40,10 +40,10 @@ public static class EnumerableExtensions {
         await Task.WhenAll(tasks.ToArray()).ConfigureAwait(configureAwait);
     }
 
-    public static bool IsAny<T>([NotNullWhen(true)] this IEnumerable<T>? source) =>
+    public static bool IsNotNullAndAny<T>([NotNullWhen(true)] this IEnumerable<T>? source) =>
         source is not null && source.Any();
 
-    public static bool IsAny<T>([NotNullWhen(true)] this IEnumerable<T>? source, Func<T, bool> predicate) =>
+    public static bool IsNotNullAndAny<T>([NotNullWhen(true)] this IEnumerable<T>? source, Func<T, bool> predicate) =>
         source is not null && source.Any(predicate);
 
     public static TSource? FirstOrDefault<TSource, TState>(this IEnumerable<TSource> source, Func<TSource, TState, bool> predicate, TState state) {
